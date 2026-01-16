@@ -1,0 +1,8 @@
+# VSCode
+.vscode/
+
+# Compiled files
+out/
+
+# Jar files
+SnakeGame.jar
