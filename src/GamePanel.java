@@ -80,12 +80,24 @@ public class GamePanel extends JPanel implements ActionListener {
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         if (running) {
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g2.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
-                g2.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
+            for(int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++){
+                for(int j = 0; j < SCREEN_WIDTH / UNIT_SIZE; j++){
+                    if ((i + j) % 2 == 0) {
+                        g2.setColor(new Color(18, 179, 21));
+                    } else {
+                        g2.setColor(new Color(11, 230, 16));
+                    }
+                    
+                    g2.fillRect(i * UNIT_SIZE, j * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+                }
             }
+
+            // Draw apples
             g2.setColor(Color.red);
             g2.fillOval(applesX, applesY, UNIT_SIZE, UNIT_SIZE);
+
+            g2.setColor(new Color(255, 255, 255, 140));
+            g2.fillOval(applesX + UNIT_SIZE/5, applesY + UNIT_SIZE/5, UNIT_SIZE/4, UNIT_SIZE/4);
 
             for (int i = 0; i < bodyParts; i++) {
                 if (i == 0) {
@@ -114,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     g2.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
-            g2.setColor(Color.green);
+            g2.setColor(Color.WHITE);
             g2.setFont(new Font(textFont, Font.BOLD, 40));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g2.drawString("SCORE: " + applesEaten, (SCREEN_WIDTH - metrics.stringWidth("SCORE: " + applesEaten))/2, g.getFont().getSize());
@@ -203,12 +215,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void gameOver(Graphics g) {
-        g.setColor(Color.blue);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(textFont, Font.BOLD, 75));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Game Over", (SCREEN_WIDTH - metrics1.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
 
-        g.setColor(Color.blue);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(textFont, Font.BOLD, 40));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
         g.drawString("SCORE: " + applesEaten, (SCREEN_WIDTH - metrics2.stringWidth("SCORE: " + applesEaten)) / 2,
